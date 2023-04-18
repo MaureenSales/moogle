@@ -26,7 +26,7 @@ public class Engine
             }
             else
             {
-//                tf[word]++;
+                tf[word]++;
                 if(tf[word] > MaxTf)
                     MaxTf = tf[word];
             }
