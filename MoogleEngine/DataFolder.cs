@@ -28,7 +28,7 @@ public class DataFolder
             }
         }
         foreach(var key in idfs.Keys)
-            idfs[key] = (float)Math.Log10(Files.Length / idfs[key]);
+            idfs[key] = (float)Math.Log(Files.Length / idfs[key]);
     }
     public float[] IDFS(string[] words)
     {

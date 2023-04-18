@@ -9,7 +9,7 @@ public class DataFile
     //diccionario con el tf de cada palabra e el documento
     Dictionary<string,float> tfs { get; set; }
     //maximo tf encontrado
-    float MaxTf{ get; set; }
+    float NumWords{ get; set; }
     public DataFile(string Root)
     {
         System.Console.Write("Loading document " + Root + " .....");
@@ -26,22 +26,18 @@ public class DataFile
         //lo separamos por palabras
         reader.Close();
         string[] words = content.Split(' ',',',';','.',':','\n');
-        MaxTf = 0f;
         foreach(var word in words)
         {
             if(tfs.Keys.Contains(word))
             {
                 tfs[word]++;
-                if(tfs[word] > MaxTf)
-                    MaxTf = tfs[word];
             }
             else
             {
                 tfs[word] = 1;
-                if(tfs[word] > MaxTf)
-                    MaxTf = tfs[word];
             }
         }
+        this.NumWords = words.Length;
         System.Console.Write("Done\n");
     }
     public float this[string word]
@@ -50,7 +46,7 @@ public class DataFile
         {
             //si el diccionario contiene a la palabra dada entre sus llaves devolvemos el tf
             if(tfs.Keys.Contains(word))
-                return tfs[word] / MaxTf;
+                return tfs[word] / NumWords;
             //sino devolvemos 0
             return 0f;
         }

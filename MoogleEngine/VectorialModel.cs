@@ -14,21 +14,16 @@ public class Engine
     }
     float[] QueryTf(string[] query)
     {
-        float MaxTf = 0f;
         Dictionary<string,float> tf = new Dictionary<string, float>();
         foreach(var word in query)
         {
             if(!tf.Keys.Contains(word))
             {
                 tf[word] = 1f;
-                if(tf[word] > MaxTf)
-                    MaxTf = tf[word];
             }
             else
             {
                 tf[word]++;
-                if(tf[word] > MaxTf)
-                    MaxTf = tf[word];
             }
         }
         float[] result = new float[tf.Keys.Count];
@@ -38,9 +33,8 @@ public class Engine
     }
     float[] Query_Vector(float[] tf, float[] idf, float value)
     {
-        float maxTf = Utils.Max(tf);
         for(int i = 0; i < tf.Length; i++)
-            tf[i] = (value + (1 - value) * tf[i]) * idf[i] / maxTf;
+            tf[i] = tf[i] * idf[i] / tf.Length;
         return tf;
     }
     float[,] Build_Documents_Vectors(float[,] tfs, float[]idfs)
@@ -85,8 +79,10 @@ public class Engine
         float[] scores = Vectorial_Model(documents,query_vector);
         List<SearchItem> items = new List<SearchItem>();
         for(int i = 0; i < scores.Length; i++)
-            if(scores[i] > 0f)
+            if(scores[i] > 0f) {
                 items.Add(new SearchItem(Folder.Files[i].Name,Snippet(Folder.Files[i].Root),scores[i]));
+                Console.WriteLine($"{Folder.Files[i].Name} {scores[i]}");
+            }
         return new SearchResult(Utils.Sort(items.ToArray()),query);
     }
 }

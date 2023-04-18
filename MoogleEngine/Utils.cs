@@ -23,7 +23,7 @@ public static class Utils
     {
         for(int i = 0; i < items.Length; i++)
             for(int j = i; j < items.Length; j++)
-                if(items[j].Score > items[i].Score)
+                if(items[j].Score < items[i].Score)
                 {
                     SearchItem temp = items[j];
                     items[j] = items[i];
