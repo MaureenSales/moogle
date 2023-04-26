@@ -3,51 +3,52 @@ namespace MoogleEngine;
 public class DataFolder
 {
     //array con las instancias de los archivos a leer
-    public DataFile[] Files {get; private set; }
+    public DataFile[] Files { get; set; }
     //diccionario con el idf de cada palabra
-    Dictionary<string,float> idfs { get; set; }
+    Dictionary<string, double> idfs { get; set; }
     public DataFolder(string Root)
     {
         //creamos el diccionario
-        idfs = new Dictionary<string, float>();
+        this.idfs = new Dictionary<string, double>();
         //obtenemos cada ruta a cada archivo
         string[] roots = Utils.EnumerateFiles(Root);
         //creamos el array
-        Files = new DataFile[roots.Length];
+        this.Files = new DataFile[roots.Length];
         //leemos los documentos
-        for(int i = 0; i < Files.Length; i++)
+        for (int i = 0; i < Files.Length; i++)
             Files[i] = new DataFile(roots[i]);
-        foreach(var file in Files)
+        foreach (var file in Files)
         {
-            foreach(var word in file.Words)
+            foreach (var word in file.Words)
             {
-                if(idfs.Keys.Contains(word))
+                if (idfs.Keys.Contains(word))
                     idfs[word]++;
                 else
                     idfs[word] = 1;
             }
         }
-        foreach(var key in idfs.Keys)
-            idfs[key] = (float)Math.Log(Files.Length / idfs[key]);
+
+        foreach (var key in idfs.Keys)
+            idfs[key] = (double)Math.Log(Files.Length / idfs[key]);    
     }
-    public float[] IDFS(string[] words)
+    public double[] IDFS(string[] words)
     {
-        float[] result = new float[words.Length];
-        for(int i = 0; i < words.Length; i++)
+        double[] result = new double[words.Length];
+        for (int i = 0; i < words.Length; i++)
         {
-            if(idfs.Keys.Contains(words[i]))
+            if (idfs.Keys.Contains(words[i]))
                 result[i] = idfs[words[i]];
             else
-                result[i] = -1f;
+                result[i] = 0f;
         }
         return result;
     }
-    public float[,] TFS(string[] words)
+    public double[,] TFS(string[] words)
     {
-        float[,] result = new float[words.Length,Files.Length];
-        for(int i = 0; i < words.Length; i++)
-            for(int j = 0; j < Files.Length; j++)
-                result[i,j] = Files[j][words[i]];
+        double[,] result = new double[words.Length, Files.Length];
+        for (int i = 0; i < words.Length; i++)
+            for (int j = 0; j < Files.Length; j++)
+                result[i, j] = Files[j][words[i]];
         return result;
     }
 }
