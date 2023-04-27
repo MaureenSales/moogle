@@ -47,7 +47,7 @@ public class DataFile
         get
         {
             //si el diccionario contiene a la palabra dada entre sus llaves devolvemos el tf
-            if (tfs.Keys.Contains(word)) 
+            if (tfs.Keys.Contains(word))
                 return tfs[word] / NumWords;
             //sino devolvemos 0
             return 0f;

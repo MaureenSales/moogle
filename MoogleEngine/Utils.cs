@@ -14,16 +14,16 @@ public static class Utils
     public static float Max(float[] values)
     {
         float result = values[0];
-        for(int i = 1; i < values.Length; i++)
-            if(values[i] > result)
+        for (int i = 1; i < values.Length; i++)
+            if (values[i] > result)
                 result = values[i];
         return result;
     }
     public static SearchItem[] Sort(SearchItem[] items)
     {
-        for(int i = 0; i < items.Length; i++)
-            for(int j = i; j < items.Length; j++)
-                if(items[j].Score > items[i].Score)
+        for (int i = 0; i < items.Length; i++)
+            for (int j = i; j < items.Length; j++)
+                if (items[j].Score > items[i].Score)
                 {
                     SearchItem temp = items[j];
                     items[j] = items[i];
