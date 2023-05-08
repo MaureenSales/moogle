@@ -11,12 +11,18 @@ public static class Utils
         string documents_root = Directory.GetCurrentDirectory() + @"\" + folder;
         return new Engine(documents_root);
     }
-    public static float Max(float[] values)
+    
+    public static string TokenizeWord (string word)
     {
-        float result = values[0];
-        for (int i = 1; i < values.Length; i++)
-            if (values[i] > result)
-                result = values[i];
+        string result = "";
+
+        for (int i = 0; i < word.Length; i++)
+        {
+            if(Char.IsLetterOrDigit(word[i]))
+            {
+                result += word[i];
+            }
+        }
         return result;
     }
     public static SearchItem[] Sort(SearchItem[] items)

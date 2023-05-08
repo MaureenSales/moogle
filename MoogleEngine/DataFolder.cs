@@ -31,10 +31,19 @@ public class DataFolder
                     idfs[word] = 1;
             }
         }
-        // por cada doc en files acceder a las palabras y acceder a traves de ellas al tf, luego calc relv con dic idfs
         foreach (var key in idfs.Keys)
             idfs[key] = (double)Math.Log(Files.Length / idfs[key]);
 
+        // por cada doc en files acceder a las palabras y acceder a traves de ellas al tf, luego calc relv con dic idfs
+        for (int i = 0; i < Files.Length; i++)
+        {
+            foreach (var word in Files[i].Words)
+            {
+                double tfidf = idfs[word] * Files[i][word];
+                norma[i] += tfidf * tfidf;
+            }
+            norma[i] = Math.Sqrt(norma[i]);
+        }
     }
 
     public double[] IDFS(string[] words)
@@ -59,14 +68,4 @@ public class DataFolder
         return result;
     }
 
-    public double[] Norm(double[] tfs, double[] idfs)
-    {
-        double[] norm = new double[Files.Length];
-        for (int i = 0; i < tfs.Length; i++)
-        {
-            norm[i] += tfs[i] * idfs[i];
-
-        }
-        return norm;
-    }
 }

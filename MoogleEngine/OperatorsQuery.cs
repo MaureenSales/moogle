@@ -17,23 +17,17 @@ public static class OperatorsQuery
         return not;
     }
 
-    public static float[] RemoveWords(List<string> not, Dictionary<string, float> tfs)
+    public static double RemoveWords(List<string> not, Dictionary<string, double> tfs)
     {
-        float[] remove = new float[tfs.Keys.Count];
-        int i = 0;
         foreach (var word in not)
         {
             if (tfs.Keys.Contains(word))
             {
-                remove[i] = 0f;
+                return 0f;
             }
-            else
-            {
-                remove[i] = 1f;
-            }
-            i++;
+
         }
-        return remove;
+        return 1f;
     }
     public static List<string> WordsYes(string query)
     {
@@ -50,25 +44,47 @@ public static class OperatorsQuery
         return yes;
     }
 
-    public static float[] NeedWords(List<string> yes, Dictionary<string, float> tfs)
+    public static double NeedWords(List<string> yes, Dictionary<string, double> tfs)
     {
-        float[] need = new float[tfs.Keys.Count];
-        int i = 0;
         foreach (var word in yes)
         {
             if (!tfs.Keys.Contains(word))
             {
-                need[i] = 0f;
+                return 0f;
             }
-            else
-            {
-                need[i] = 1f;
-            }
-            i++;
+
         }
-        return need;
+        return 1f;
     }
 
+    public static Dictionary<string, int> WordsPriority(string query)
+    {
+        Dictionary<string, int> words_priority = new Dictionary<string, int>();
+        query += " ";
+        int first = query.IndexOf("*");
+        while (query.IndexOf("*") >= 0)
+        {
+            int count_ast = 0;
+            for (int i = first; i < query.Length; i++)
+            {
+                if (query[i] == '*')
+                {
+                    count_ast++;
+                }
+                else
+                {
+                    int space = query.IndexOf(" ", i);
+                    string word = query.Substring(i, space - i);
+                    words_priority[word] = count_ast;
+                    query = query.Substring(space);
+                    first = query.IndexOf("*");
 
+                    break;
+                }
+            }
 
+        }
+        return words_priority;
+    }
+    
 }

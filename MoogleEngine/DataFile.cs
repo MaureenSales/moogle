@@ -4,7 +4,7 @@ public class DataFile
 {
     //nombre del documento
     public string Name { get; private set; }
-    //ruta del documento
+    //ruta del documento 
     public string Root { get; private set; }
     //diccionario con el tf de cada palabra e el documento
     public Dictionary<string, double> tfs { get; set; }
@@ -25,7 +25,14 @@ public class DataFile
         string content = reader.ReadToEnd().ToLower();
         //lo separamos por palabras
         reader.Close();
-        string[] words = content.Split(' ', ',', ';', '.', ':', '\n');
+        char[] sg = { ' ', ',', ';', '.', ':', '\n', '\t' };
+        string[] words = content.Split(sg, StringSplitOptions.RemoveEmptyEntries);
+
+        for (int i = 0; i < words.Length; i++)
+        {
+            words[i] = Utils.TokenizeWord(words[i]);
+        }
+        
         foreach (var word in words)
         {
             if (tfs.Keys.Contains(word))
@@ -39,7 +46,6 @@ public class DataFile
         }
 
         this.NumWords = words.Length;
-        Console.WriteLine(NumWords);
         System.Console.Write($"Done\n ");
     }
     public double this[string word]
