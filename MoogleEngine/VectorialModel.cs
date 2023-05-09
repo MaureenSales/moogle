@@ -34,11 +34,11 @@ public class Engine
         {
             if (!tf.Keys.Contains(x.Key))
             {
-                tf[x.Key] = 2 * x.Value + 1;
+                tf[x.Key] = 2 * x.Value;
             }
             else
             {
-                tf[x.Key] += 2 * x.Value + 1;
+                tf[x.Key] += 2 * x.Value;
             }
         }
 

@@ -10,7 +10,7 @@ Es una aplicación web, desarrollada con tecnología .NET Core 6.0, específicam
 La aplicación está dividida en dos componentes fundamentales:
 
 - `MoogleServer` es un servidor web que renderiza la interfaz gráfica y sirve los resultados.
-- `MoogleEngine` es una biblioteca de clases donde está... ehem... casi implementada la lógica del algoritmo de búsqueda.
+- `MoogleEngine` es una biblioteca de clases donde está implementada la lógica del algoritmo de búsqueda.
 
 ## Requisitos e instrucciones para la búsqueda
 

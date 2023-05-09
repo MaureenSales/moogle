@@ -16,7 +16,7 @@ public class DataFolder
         string[] roots = Utils.EnumerateFiles(Root);
         //creamos el array
         this.Files = new DataFile[roots.Length];
-        //leemos los documentos
+
         this.norma = new double[Files.Length];
         //vectores normalizados de cada file
         for (int i = 0; i < Files.Length; i++)

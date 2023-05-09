@@ -4,7 +4,7 @@ public class DataFile
 {
     //nombre del documento
     public string Name { get; private set; }
-    //ruta del documento 
+    //ruta del contenedor 
     public string Root { get; private set; }
     //diccionario con el tf de cada palabra e el documento
     public Dictionary<string, double> tfs { get; set; }
